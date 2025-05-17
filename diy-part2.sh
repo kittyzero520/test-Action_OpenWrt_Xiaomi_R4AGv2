@@ -11,6 +11,10 @@
 # 移除冲突的 dnsmasq 包
 sed -i '/CONFIG_PACKAGE_dnsmasq=y/d' .config
 
+# 修改默认LAN IP
+sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+
+
 # 确保使用 dnsmasq-full（避免重复添加）
 if ! grep -q 'CONFIG_PACKAGE_dnsmasq-full=y' .config; then
   echo 'CONFIG_PACKAGE_dnsmasq-full=y' >> .config
