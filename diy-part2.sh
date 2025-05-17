@@ -14,7 +14,6 @@ sed -i '/CONFIG_PACKAGE_dnsmasq=y/d' .config
 # 修改默认LAN IP
 sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
 
-
 # 确保使用 dnsmasq-full（避免重复添加）
 if ! grep -q 'CONFIG_PACKAGE_dnsmasq-full=y' .config; then
   echo 'CONFIG_PACKAGE_dnsmasq-full=y' >> .config
@@ -24,7 +23,6 @@ fi
 echo "===== dnsmasq 配置状态 ====="
 grep -E 'CONFIG_PACKAGE_(dnsmasq|dnsmasq-full)=y' .config
 echo "=========================="
-
 
 # ======================
 # 新增：固件信息修改
@@ -43,3 +41,13 @@ sed -i 's/hostname=.*$/hostname="Xiaomi"/g' package/base-files/files/bin/config_
 # 注意：请根据实际设备DTS文件路径调整，以下为常见路径示例
 sed -i 's/ADSLR G7/Xiaomi Mi Router 4A Gigabit Edition v2/g' target/linux/ramips/dts/mt7621_xiaomi_mir3g-v2.dts
 sed -i 's/ADSLR G7/Xiaomi Mi Router 4A Gigabit Edition v2/g' target/linux/ramips/image/mt7621.mk
+
+# ======================
+# 新增：修改固件文件名
+# ======================
+# 5. 修改编译配置中的设备标识
+# 查找并替换Makefile中的设备标识
+sed -i 's/adslr_g7/xiaomi_mir3g-v2/g' target/linux/ramips/image/mt7621.mk
+
+# 6. 修改.config中的设备配置（如果需要）
+sed -i 's/CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_adslr_g7=y/CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_xiaomi_mir3g-v2=y/g' .config
