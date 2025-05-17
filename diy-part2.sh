@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # https://github.com/P3TERX/Actions-OpenWrt
-# File name: diy - part2.sh
+# File name: diy-part2.sh
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
@@ -11,14 +11,14 @@ sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # 移除冲突的 dnsmasq 包
 sed -i '/CONFIG_PACKAGE_dnsmasq=y/d' .config
 
-# 确保使用 dnsmasq - full（避免重复添加）
-if! grep -q 'CONFIG_PACKAGE_dnsmasq - full=y' .config; then
-    echo 'CONFIG_PACKAGE_dnsmasq - full=y' >>.config
-fi
+# 确保使用 dnsmasq-full（注意：删除名称中的空格）
+if ! grep -q 'CONFIG_PACKAGE_dnsmasq-full=y' .config; then
+    echo 'CONFIG_PACKAGE_dnsmasq-full=y' >> .config
+fi  # 添加 fi 闭合 if 语句
 
 # 打印配置验证结果（可选，用于调试）
 echo "===== dnsmasq 配置状态 ====="
-grep -E 'CONFIG_PACKAGE_(dnsmasq|dnsmasq - full)=y' .config
+grep -E 'CONFIG_PACKAGE_(dnsmasq|dnsmasq-full)=y' .config
 echo "=========================="
 
 # 以下是还原设备名称相关的修改
