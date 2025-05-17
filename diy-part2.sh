@@ -42,12 +42,4 @@ sed -i 's/hostname=.*$/hostname="Xiaomi"/g' package/base-files/files/bin/config_
 sed -i 's/ADSLR G7/Xiaomi Mi Router 4A Gigabit Edition v2/g' target/linux/ramips/dts/mt7621_xiaomi_mir3g-v2.dts
 sed -i 's/ADSLR G7/Xiaomi Mi Router 4A Gigabit Edition v2/g' target/linux/ramips/image/mt7621.mk
 
-# ======================
-# 新增：修改固件文件名
-# ======================
-# 5. 修改编译配置中的设备标识
-# 查找并替换Makefile中的设备标识
-sed -i 's/adslr_g7/xiaomi_mir3g-v2/g' target/linux/ramips/image/mt7621.mk
 
-# 6. 修改.config中的设备配置（如果需要）
-sed -i 's/CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_adslr_g7=y/CONFIG_TARGET_DEVICE_ramips_mt7621_DEVICE_xiaomi_mir3g-v2=y/g' .config
